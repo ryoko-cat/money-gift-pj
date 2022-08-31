@@ -1,0 +1,37 @@
+version: "3"
+services:
+  mysql-type: # サービス名
+    build:
+      context: .
+      dockerfile: Dockerfile_mysql
+    volumes:
+      - ./:/src # 現在のパス'.'と、コンテナ内の'/srcディレクトリ'をリンク
+    working_dir: "/src/mysql" #コンテナ内のsrcファイルの中にtodoディレクトリ作成。これとローカルをリンク
+    environment:
+      - MYSQL_ROOT_PASSWORD=root # rootパスワードを設定
+      - MYSQL_DATABASE=todo
+      - MYSQL_USER=ayaka
+      - MYSQL_PASSWORD=ayaka
+      - TZ="Asia/Tokyo"
+    # command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    ports: # ポート接続
+      - 3306:3306
+    expose:
+      - 3306
+    tty: true
+    stdin_open: true
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  express-type:
+    image: node:lts
+    tty: true
+    expose:
+      - 4000
+      - 9229
+    ports: # ポート接続
+      - 4000:4000
+      - 9229:9229
+    volumes:
+      - ./:/src
+    working_dir: "/src/express"
+    command: sh -c 'npx tsc; npm run start:debug'

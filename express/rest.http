@@ -1,0 +1,12 @@
+GET http://localhost:4000
+
+###
+POST http://localhost:4000/edit
+Content-Type: application/json
+
+{
+    "name": "田中　一郎",
+    "adress": "東京都中央区",
+    "tel": "090-1234-5678",
+    "payAmount": 30000
+}
