@@ -12,28 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-var router = express_1.default.Router();
+var express = require('express');
+var router = express.Router();
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
+// import { Router, Request, Response } from 'express';
+// import { PrismaClient } from '@prisma/client';
+// const prisma = new PrismaClient();
+// const router = Router();
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const users = yield prisma.user.findMany();
         res.json(users);
     });
 });
-router.get('/:id', function (req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const users = yield prisma.user.findMany({
-            where: {
-                id: Number(req.params.id)
-            }
-        });
-        res.json(users);
-    });
-});
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { name, adress, tel, payAmount } = req.body;
         try {
