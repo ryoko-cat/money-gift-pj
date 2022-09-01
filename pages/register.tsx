@@ -10,13 +10,13 @@ const Register: NextPage = () => {
   const [adress, setAdress] = useState<string>('')
   const [tel, setTel] = useState<string>('')
   const [payAmount, setPayAmount] = useState<string>('')
+  const [token, setToken] = useState<string>('')
 
   const form = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (name === '' && adress === '' && tel === '' && payAmount === '') return
+    if (name === '' || adress === '' || tel === '' || payAmount === '' || token === '') return
     const body = {
       name: name,
-      // zipCode: zipCode,
       adress: adress,
       tel: tel,
       payAmount: payAmount
@@ -40,13 +40,14 @@ const Register: NextPage = () => {
     setAdress('')
     setTel('')
     setPayAmount('')
+    setToken('')
     router.push('/payment') // TODO登録後の遷移先
   }
 
   return (
     <div>
-      <form onSubmit={form}>
-        <div>
+      <form className="form" onSubmit={form}>
+        <div className="item">
           <label htmlFor="name">
             お名前:
           </label>
@@ -56,17 +57,7 @@ const Register: NextPage = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </div>
-        {/* <div>
-          <label htmlFor="zipcode">
-            郵便番号:
-          </label>
-          <input
-            id="zipcode"
-            type="text"
-            onChange={(e) => setZipCode(e.target.value)}
-          />
-        </div> */}
-        <div>
+        <div className="item">
           <label htmlFor="adress">
             郵便番号・ご住所:
           </label>
@@ -76,7 +67,7 @@ const Register: NextPage = () => {
             onChange={(e) => setAdress(e.target.value)}
           />
         </div>
-        <div>
+        <div className="item">
           <label htmlFor="tel">
             お電話番号:
           </label>
@@ -96,6 +87,16 @@ const Register: NextPage = () => {
               type="text"
               onChange={(e) => setPayAmount(e.target.value)}
             />円</span>
+        </div>
+        <div>
+          <label htmlFor="token">
+            アクセストークン:
+          </label>
+          <input
+            id="token"
+            type="text"
+            onChange={(e) => setToken(e.target.value)}
+          />
         </div>
         <button type="submit">
           登録する
