@@ -30,4 +30,4 @@ router.post('/', async function (req: any, res: any) {
     console.log(error)
   }
 })
-module.exports = router;
+module.exports = router

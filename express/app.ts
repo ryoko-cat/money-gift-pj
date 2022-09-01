@@ -1,11 +1,12 @@
 var cors = require('cors')
 var createError = require('http-errors');
-var express = require('express');
+import express from 'express';
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var sunabarRouter = require('./routes/sunabar');
 
 var app = express();
 app.use(cors())
@@ -21,6 +22,7 @@ app.use(cookieParser());
 app.use(express.static(path.join('public')));
 
 app.use('/', indexRouter);
+app.use('/sunabar', sunabarRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req: express.Request, res: express.Response, next: express.NextFunction) {
