@@ -6,7 +6,7 @@ Content-Type: application/json
 
 {
     "name": "田中　一郎",
-    "adress": "東京都中央区",
+    "adress": "東京都中央区銀座",
     "tel": "090-1234-5678",
     "payAmount": 30000
 }

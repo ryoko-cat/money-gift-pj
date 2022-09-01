@@ -8,15 +8,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require('express');
-var router = express.Router();
+const express_1 = __importDefault(require("express"));
+var router = express_1.default.Router();
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
 /* GET home page. */
 router.get('/', function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const users = yield prisma.user.findMany();
+        res.json(users);
+    });
+});
+router.get('/:id', function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const users = yield prisma.user.findMany({
+            where: {
+                id: Number(req.params.id)
+            }
+        });
         res.json(users);
     });
 });
