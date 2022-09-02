@@ -19,8 +19,8 @@ const Login: FC = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={logIn}>
+    <div className='login-cont'>
+      <form className="login-form" onSubmit={logIn}>
         <div>
           <label htmlFor="email">
             Email:{' '}
@@ -41,7 +41,7 @@ const Login: FC = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">
+        <button className="btn" type="submit">
           Login
         </button>
       </form>

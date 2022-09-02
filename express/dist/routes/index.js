@@ -12,14 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express = require('express');
-var router = express.Router();
+const express_1 = __importDefault(require("express"));
+var router = express_1.default.Router();
 const client_1 = require("@prisma/client");
+const request_1 = __importDefault(require("request"));
 const prisma = new client_1.PrismaClient();
-// import { Router, Request, Response } from 'express';
-// import { PrismaClient } from '@prisma/client';
-// const prisma = new PrismaClient();
-// const router = Router();
 /* GET home page. */
 router.get('/', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -27,16 +24,56 @@ router.get('/', function (req, res) {
         res.json(users);
     });
 });
+// function a(){
+// var options = {
+//         'method': 'GET',
+//             'url': 'https://api.sunabar.gmo-aozora.com/personal/v1/accounts/balances',
+//             'headers': {
+//               'Accept': 'application/json;charset=UTF-8',
+//               'Content-Type': 'application/json;charset=UTF-8',
+//               'x-access-token': 'NzBlODYyNDQ1MTA1MDg3YTEzMDQ0ODBm'
+//             }
+//           };
+//           request(options, function(error: any, responce: any){
+//             if(error) throw new Error
+//             console.log(responce.body)
+//           })
+// }
+// a()
 router.post('/', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { name, adress, tel, payAmount } = req.body;
+        res.setHeader("Access-Control-Allow-Methods", "POST");
+        res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        const { name, adress, tel, payAmount, token, accountId } = req.body;
+        // console.log(name)
+        // console.log(token)
+        var options = {
+            'method': 'POST',
+            'url': 'https://api.sunabar.gmo-aozora.com/personal/v1/transfer/request',
+            'headers': {
+                'Accept': 'application/json;charset=UTF-8',
+                'Content-Type': 'application/json;charset=UTF-8',
+                'x-access-token': token
+            },
+            body: `{ \n	"accountId":"${accountId}",\n	"transferDesignatedDate":"2022-09-02", \n	"transferDateHolidayCode":"1", \n	"totalCount":"1", \n	"totalAmount":"${payAmount}", \n	"transfers":\n	[\n		{ \n			"itemId":"1", \n			"transferAmount":"${payAmount}", \n			"beneficiaryBankCode":"0310",\n			"beneficiaryBranchCode":"301", \n			"accountTypeCode":"1", \n			"accountNumber":"0005142", \n			"beneficiaryName":"ｽﾅﾊﾞ ｶｽﾞﾄ"\n		}\n	] \n}`
+        };
+        // console.log(payAmount)
+        // console.log(typeof payAmount)
+        // console.log(accountId)
+        // console.log(typeof accountId)
+        // console.log(options.body)
+        (0, request_1.default)(options, function (error, responce) {
+            if (error)
+                throw new Error;
+            console.log(responce.body);
+        });
         try {
             const users = yield prisma.user.create({
                 data: {
                     name,
                     adress,
                     tel,
-                    payAmount
+                    payAmount,
                 }
             });
             return res.json(users);

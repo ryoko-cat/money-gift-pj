@@ -1,8 +1,10 @@
 html,
 body {
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
   font-family: "ヒラギノ角ゴ ProN W3", HiraKakuProN-W3, 游ゴシック, "Yu Gothic", メイリオ, Meiryo, Verdana, Helvetica, Arial, sans-serif;
+  background-color: #dcc8dc;
+  text-align: center;
 }
 
 a {
@@ -13,14 +15,115 @@ a {
 * {
   box-sizing: border-box;
 }
+.btn {
+  background-color: #EA4C89;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  height: 40px;
+  line-height: 20px;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: color 100ms;
+  vertical-align: baseline;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 20px
+}
 
-@media (prefers-color-scheme: dark) {
+.btn:hover,
+.btn:focus {
+  background-color: #F082AC;
+}
+.list-cont {
+  text-align: center;
+}
+
+.list {
+  font-size: 30px;
+  color: black;
+}
+
+.list-table {
+  margin: auto;
+}
+
+table {
+  border-collapse: collapse;
+  border: solid 2px black;
+}
+
+table th,
+table td {
+  border: dashed 1px black;
+
+}
+.register-container {
+  margin-top: 60px;
+  font-family: "Roboto", sans-serif;
+}
+.item {
+  margin: 10px;
+}
+.item p {
+  font-weight: bold;
+}
+
+.login-cont {
+  margin-top: 50px;
+}
+
+.login-form {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.login-form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #FFE4E1;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.thanks-container {
+  margin-top: 60px;
+  font-family: "Roboto", sans-serif;
+}
+.thanks {
+  font-family: "Roboto", sans-serif;
+}
+@media (prefers-color-scheme: light) {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
 
   body {
-    color: white;
-    background: black;
+    color: black;
+    background: white;
   }
 }

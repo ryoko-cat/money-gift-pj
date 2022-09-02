@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 
 const Register: NextPage = () => {
@@ -11,6 +12,7 @@ const Register: NextPage = () => {
   const [tel, setTel] = useState<string>('')
   const [payAmount, setPayAmount] = useState<string>('')
   const [token, setToken] = useState<string>('')
+  const [accountId, setAccountId] = useState<string>('')
 
   const form = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -19,9 +21,12 @@ const Register: NextPage = () => {
       name: name,
       adress: adress,
       tel: tel,
-      payAmount: payAmount
+      payAmount: Number(payAmount),
+      token: token,
+      accountId: accountId
     };
-    await fetch(apiurl, { // TODO:expressの接続先に変更
+    console.log(JSON.stringify(body))
+    await fetch("http://localhost:4000", { // TODO:expressの接続先に変更
       method: 'POST',
       mode: 'cors',
       headers: {
@@ -41,11 +46,15 @@ const Register: NextPage = () => {
     setTel('')
     setPayAmount('')
     setToken('')
-    router.push('/payment') // TODO登録後の遷移先
   }
 
   return (
-    <div>
+    <div className='register-container'>
+      <div className='intro'>
+        <h1>WeGiftへようこそ！</h1>
+        <p>アプリのご利用ありがとうございます！<br />こちらでご祝儀のお手配をお願いします！</p>
+        <p>住所・名前・電話番号、銀行情報、ご祝儀額を入力後、ボタンを押してください☺</p>
+      </div>
       <form className="form" onSubmit={form}>
         <div className="item">
           <label htmlFor="name">
@@ -77,18 +86,28 @@ const Register: NextPage = () => {
             onChange={(e) => setTel(e.target.value)}
           />
         </div>
-        <div>
+        <div className="item">
+          <label htmlFor="name">
+            銀行アカウントのID:
+          </label>
+          <input
+            id="name"
+            type="text"
+            onChange={(e) => setAccountId(e.target.value)}
+          />
+        </div>
+        <div className="item">
           <label htmlFor="payAmount">
             ご祝儀額:
           </label>
           <span>
             <input
               id="payAmount"
-              type="text"
+              type="number"
               onChange={(e) => setPayAmount(e.target.value)}
             />円</span>
         </div>
-        <div>
+        <div className="item">
           <label htmlFor="token">
             アクセストークン:
           </label>
@@ -98,10 +117,18 @@ const Register: NextPage = () => {
             onChange={(e) => setToken(e.target.value)}
           />
         </div>
-        <button type="submit">
+        <button className="btn" type="submit" onClick={() => router.push("/thanks")}>
           登録する
         </button>
       </form>
+      <Image alt="imagePic" 
+             src='/22970299.jpg'
+             width={200}
+             height={200} />
+      <div className='couple'>
+        <p>Kazuto Sunaba</p>
+        <p>Mizue Yamazaki</p>
+      </div>
     </div>
   )
 }

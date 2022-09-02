@@ -16,4 +16,5 @@ model User {
   adress String
   tel String
   payAmount Int
+  token String?
 }
