@@ -1,3 +1,4 @@
+/* eslint react-hooks/exhaustive-deps: off */ 
 import type { GetServerSideProps, NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -23,9 +24,9 @@ const List: NextPage = ({ list }: any) => {
 
   return (
     <>
-      <h1>リスト</h1>
+<div className='list'><p>ご祝儀登録者リスト</p></div>      
       <div>
-        <table>
+        <table className='list-table'>
           <thead>
             <tr>
               <th>名前</th>
@@ -50,12 +51,12 @@ const List: NextPage = ({ list }: any) => {
           </tbody>
         </table>
       </div>
-      <button onClick={logOut}>Logout</button>
+      <button className="btn" onClick={logOut}>Logout</button>
     </>
   )
 }
 export const getServerSideProps: GetServerSideProps = async () => {
-  const resList = await fetch(`https://api.sssapi.app/nMm3U9FjNSKi46j1oH_jP`) // TODO:データを持ってくるexpressのURLいれる
+  const resList = await fetch(`http://express-type:4000`) // TODO:データを持ってくるexpressのURLいれる
   const list = await resList.json()
 
   return {
